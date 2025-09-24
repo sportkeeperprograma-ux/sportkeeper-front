@@ -1,11 +1,8 @@
 [build]
-  command = "npm ci && CI= npm run build"   # evita que warnings paren el build
-  publish = "build"
+  command = ""
+    publish = "."   # o la carpeta donde esté tu index.html
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
-[build.environment]
-  NODE_VERSION = "20"
+    [[redirects]]
+      from = "/*"
+        to = "/index.html"
+          status = 200
