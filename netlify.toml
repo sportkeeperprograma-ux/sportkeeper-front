@@ -1,7 +1,6 @@
 [build]
-  base = "frontend"
-  command = "npm ci && CI= npm run build"
-  publish = "frontend/build"
+  command = "npm ci && CI= npm run build"   # evita que warnings paren el build
+  publish = "build"
 
 [[redirects]]
   from = "/*"
