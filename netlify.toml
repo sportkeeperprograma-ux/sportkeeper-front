@@ -1,11 +1,6 @@
 [build]
-  # Carpeta donde se generan los archivos estáticos tras hacer npm run build
-    publish = "build"
-      # Comando para construir tu proyecto
-        command = "npm run build"
+  command = "npm run build"
+    publish = ".next"
 
-        [[redirects]]
-          # Redirige todas las rutas hacia index.html (necesario en React Router)
-            from = "/*"
-              to = "/index.html"
-                status = 200
+    [[plugins]]
+      package = "@netlify/plugin-nextjs"
