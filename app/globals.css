@@ -1,0 +1,21 @@
+/* Tailwind v4 */
+@tailwind base; @tailwind components; @tailwind utilities;
+
+/* Fondo suave con gradiente + patrón sutil */
+:root{
+  --bg-1: 255 255 255;      /* blanco */
+  --bg-2: 243 244 246;      /* gray-100 */
+}
+html,body{height:100%;}
+body{
+  color: rgb(17 24 39);
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(59,130,246,0.12), transparent 60%),
+    radial-gradient(900px 500px at -10% 30%, rgba(16,185,129,0.12), transparent 60%),
+    linear-gradient(180deg, rgb(var(--bg-1)) 0%, rgb(var(--bg-2)) 100%);
+}
+
+/* Pequeños detalles */
+*{scrollbar-width: thin;}
+::-webkit-scrollbar{height:8px;width:8px;}
+::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:999px;}
