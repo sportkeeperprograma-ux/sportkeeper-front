@@ -1,8 +1,11 @@
 [build]
-  command = ""
-    publish = "."   # o la carpeta donde esté tu index.html
+  # Carpeta donde se generan los archivos estáticos tras hacer npm run build
+    publish = "build"
+      # Comando para construir tu proyecto
+        command = "npm run build"
 
-    [[redirects]]
-      from = "/*"
-        to = "/index.html"
-          status = 200
+        [[redirects]]
+          # Redirige todas las rutas hacia index.html (necesario en React Router)
+            from = "/*"
+              to = "/index.html"
+                status = 200
