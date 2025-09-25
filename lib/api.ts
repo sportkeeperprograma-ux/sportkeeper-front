@@ -50,3 +50,19 @@ export async function apiDelete(path: string){
   });
   if(!r.ok) throw new Error(await safeMsg(r));
 }
+
+export async function apiPatch(path: string, body: any) {
+  const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+  const r = await fetch(`${API_URL}${path}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      ...(token ? { "Authorization": "Bearer " + token } : {})
+    },
+    body: JSON.stringify(body)
+  });
+  if (!r.ok) throw new Error(await safeMsg(r));
+  // algunos PATCH pueden devolver 204 sin body
+  return r.status === 204 ? undefined : r.json();
+}
+

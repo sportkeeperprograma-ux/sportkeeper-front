@@ -38,7 +38,11 @@ export default function Navbar(){
         <nav className="flex gap-2">
           <Tab href="/" label="Inicio" />
           <Tab href="/slots" label="Slots" />
-          {user?.role === "ADMIN" && <Tab href="/admin/slots" label="Admin" />}{/* 👈 solo admin */}
+          <Tab href="/student/notes" label="Notas" />
+          {(user?.role === "ADMIN" || user?.role === "COACH") && <Tab href="/teacher/slots" label="SlotsTeacher" />}{/* 👈 solo admin */}
+          {(user?.role === "ADMIN" || user?.role === "COACH") && <Tab href="/admin/slots" label="Admin" />}{/* 👈 solo admin */}
+          {user?.role === "ADMIN" && <Tab href="/admin/users" label="Usuarios" />}{/* 👈 solo admin */}
+          {user?.role === "ADMIN" && <Tab href="/admin/activities" label="Actividades" />}{/* 👈 solo admin */}
         </nav>
       </div>
     </header>
