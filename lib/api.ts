@@ -1,5 +1,15 @@
 import { API_URL } from "./config";
 
+export class ApiError extends Error {
+  status: number;
+
+  constructor(message: string, status: number) {
+    super(message);
+    this.name = "ApiError";
+    this.status = status;
+  }
+}
+
 async function safeMsg(r: Response){
   try { const j = await r.json() as any; return j.message || r.statusText; }
   catch { return r.statusText; }
@@ -10,7 +20,7 @@ export async function apiGet(path: string){
   const r = await fetch(`${API_URL}${path}`, {
     headers: token ? { "Authorization":"Bearer " + token } : undefined
   });
-  if(!r.ok) throw new Error(await safeMsg(r));
+  if(!r.ok) throw new ApiError(await safeMsg(r), r.status);
   return r.json();
 }
 
@@ -24,7 +34,7 @@ export async function apiPost(path: string, body: any){
     },
     body: JSON.stringify(body)
   });
-  if(!r.ok) throw new Error(await safeMsg(r));
+  if(!r.ok) throw new ApiError(await safeMsg(r), r.status);
   return r.json();
 }
 
@@ -38,7 +48,7 @@ export async function apiPut(path: string, body: any){
     },
     body: JSON.stringify(body)
   });
-  if(!r.ok) throw new Error(await safeMsg(r));
+  if(!r.ok) throw new ApiError(await safeMsg(r), r.status);
   return r.json();
 }
 
@@ -48,7 +58,7 @@ export async function apiDelete(path: string){
     method: "DELETE",
     headers: token ? { "Authorization":"Bearer " + token } : undefined
   });
-  if(!r.ok) throw new Error(await safeMsg(r));
+  if(!r.ok) throw new ApiError(await safeMsg(r), r.status);
 }
 
 export async function apiPatch(path: string, body: any) {
@@ -61,7 +71,7 @@ export async function apiPatch(path: string, body: any) {
     },
     body: JSON.stringify(body)
   });
-  if (!r.ok) throw new Error(await safeMsg(r));
+  if (!r.ok) throw new ApiError(await safeMsg(r), r.status);
   // algunos PATCH pueden devolver 204 sin body
   return r.status === 204 ? undefined : r.json();
 }
